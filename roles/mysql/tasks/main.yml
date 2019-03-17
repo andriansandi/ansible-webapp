@@ -1,11 +1,6 @@
 ---
 - name: Install MySQL Packages
-  apt: name={{ item }} state=present update_cache=yes
-  with_items:
-    - mysql-server-5.7
-    - mysql-client-5.7
-    - python-mysqldb
-    - libmysqlclient-dev
+  apt: name=["mysql-server-5.7", "mysql-client-5.7", "python-mysqldb", "libmysqlclient-dev"] state=present update_cache=yes
 
 - name: Update MySQL root password for all root accounts
   mysql_user: name=root host={{ item }} password={{ mysql_root_pass }} state=present

@@ -1,8 +1,10 @@
 ---
 - name: Install PHP
-  apt: name={{item}} state=present
-  with_items:
-    - php 
+  apt: 
+    name: "Installing {{ item }} ..." 
+    state: present
+  loop: 
+    - php
     - php-mcrypt
     - php-mysql 
     - php-common
@@ -17,5 +19,5 @@
   notify:
     - restart apache2
 
-- name: Add info.php file
+- name: copy info.php
   copy: src=templates/php/info.php dest=/var/www/html/info.php

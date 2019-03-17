@@ -1,8 +1,7 @@
 ---
-- hosts: webcepat
+- hosts: dcodeqa-app
   become: yes
   roles: 
     - common
     - apache2
-    - mysql
     - php
