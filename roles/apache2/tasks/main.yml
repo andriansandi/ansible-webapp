@@ -1,8 +1,20 @@
 ---
-- name: install apache2
-  apt: name=apache2 state=present
+- name: ensure the apache2 is the latest version
+  apt: name=apache2 state=latest
   notify:
     - restart apache2
+
+- name: create a virtual host file for {{ vhost }}
+  template: 
+    src: templates/apache2/vhost.j2
+    dest: /etc/apache2/sites-available/{{ vhost }}.conf
+
+- name: a2ensite {{ vhost }}
+  command: a2ensite {{ vhost }}
+  args:
+    creates: /etc/apache2/sites-enabled/{{ vhost }}.conf
+  notify:
+  - restart apache2
 
 - name: enabled mod_rewrite
   apache2_module: name=rewrite state=present

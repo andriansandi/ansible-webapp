@@ -1,8 +1,8 @@
 ---
-- name: Install PHP
+- name: Install PHP 
   apt: 
-    name: "Installing {{ item }} ..." 
-    state: present
+    name: "{{ item }}" 
+    state: latest
   loop: 
     - php
     - php-mcrypt
